@@ -42,7 +42,6 @@ const getCities = (json, params) => {
                 "name": json[i].name,
                 "latitude": json[i].lat,
                 "longitude": json[i].long,
-                // "distance": distance(params.latitude, params.longitude, json[i].lat, json[i].long, "K"),
                 "score": calculateLocationScore(json[i], params.latitude, params.longitude)
             })
         } else if (!params.q && params.latitude && params.longitude && json[i].lat && json[i].long) {
@@ -50,7 +49,6 @@ const getCities = (json, params) => {
                 "name": json[i].name,
                 "latitude": json[i].lat,
                 "longitude": json[i].long,
-                //"distance": distance(params.latitude, params.longitude, json[i].lat, json[i].long, "K"),
                 "score": calculateLocationScore(json[i], params.latitude, params.longitude)
             })
         } else if (params.q && json[i].name && !params.latitude && !params.longitude) {
@@ -58,7 +56,6 @@ const getCities = (json, params) => {
                 "name": json[i].name,
                 "latitude": json[i].lat,
                 "longitude": json[i].long,
-                // "distance": distance(params.latitude, params.longitude, json[i].lat, json[i].long, "K"),
                 "score": calculateStringScore(params.q, json[i].name)
             })
         }
@@ -68,23 +65,6 @@ const getCities = (json, params) => {
     });;
 }
 
-// function distance(lat1, lon1, lat2, lon2, unit) {
-//     var radlat1 = Math.PI * parseInt(lat1) / 180
-//     var radlat2 = Math.PI * parseInt(lat2) / 180
-//     var theta = parseInt(lon1) - parseInt(lon2)
-//     var radtheta = Math.PI * theta / 180
-//     var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-//     if (dist > 1) {
-//         dist = 1;
-//     }
-//     dist = Math.acos(dist)
-//     dist = dist * 180 / Math.PI
-//     dist = dist * 60 * 1.1515
-//     console.log(dist)
-//     if (unit == "K") { dist = dist * 1.609344 }
-//     if (unit == "N") { dist = dist * 0.8684 }
-//     return dist
-// }
 
 function calculateLocationScore(location, latitude, longitude) {
     const lat = Math.abs(parseInt(location.lat) - parseInt(latitude));
