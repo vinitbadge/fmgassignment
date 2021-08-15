@@ -14,5 +14,18 @@ app.use(express.json());
 //use users route for api/users
 app.use("/api", usersRoute);
 
+app.use(function (req, res, next) {
+    return res.status(404).send(JSON.stringify({ success: false, errorcode: 1000, message: config.errorcodes["1000"] }));
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    console.log(err);
+    res.locals.error = err;
+    return res.status(500).send(JSON.stringify({ success: false, errorcode: 999, message: config.errorcodes["999"] }));
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
