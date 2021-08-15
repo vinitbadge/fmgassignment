@@ -15,7 +15,7 @@ app.use(express.json());
 app.use("/api", usersRoute);
 
 app.use(function (req, res, next) {
-    return res.status(404).send(JSON.stringify({ success: false, errorcode: 1000, message: config.errorcodes["1000"] }));
+    return res.status(404).send(JSON.stringify({ success: false, errorcode: 1000, message: "not found" }));
 });
 
 // error handler
@@ -24,7 +24,7 @@ app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     console.log(err);
     res.locals.error = err;
-    return res.status(500).send(JSON.stringify({ success: false, errorcode: 999, message: config.errorcodes["999"] }));
+    return res.status(500).send(JSON.stringify({ success: false, errorcode: 999, message: "went wrong" }));
 });
 
 const port = process.env.PORT || 3000;
